@@ -3,16 +3,12 @@ import {
 } from "./Actiontypes";
 import sampleData from '../Components/Data/data.json'
 
-let perPage = 10
-let totalPages = Math.ceil(sampleData.length/perPage)
-console.log(totalPages)
-
 const initState = {
     data: sampleData,
     page: 1,
-    perPage: perPage,
+    perPage: 5,
     length: 0,
-    totalPages: totalPages,
+    totalPages: Math.ceil(sampleData.length/5),
     isLoadng: false,
     error: false
 };
