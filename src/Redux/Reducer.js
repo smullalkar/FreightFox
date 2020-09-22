@@ -5,12 +5,19 @@ import {
     SORT_BY_EMAIL,
     FILTER_PAYMENT_STATUS,
     FILTER_DATERANGE,
-    DELETE_PAYMENT
+    DELETE_PAYMENT,
+    EDIT_PAYMENT,
+    ADD_PAYMENT,
+    CHANGE_PERPAGE
 } from "./Actiontypes";
 import sampleData from '../Components/Data/data.json'
+import { loadData, saveData } from './LocalStorage'
 
-const initState = {
-    data: sampleData,
+let persistData = loadData("state")
+console.log(persistData)
+
+const initState =  {
+    data: persistData !== null && persistData.length !== 0 ? persistData : sampleData,
     page: 1,
     perPage: 5,
     length: 0,
@@ -18,17 +25,30 @@ const initState = {
     isLoadng: false,
     error: false,
     filteredData: [],
-    isFilter: false
+    isFilter: false,
+    edit: false
 };
 
 export default (state = initState, { type, payload }) => {
     switch (type) {
+        case ADD_PAYMENT:
+            let d1 = [...state.data, payload]
+            saveData('state', d1)
+            return {
+                ...state,
+                data: d1
+            };
         case CHANGE_PAGE_NO:
             if (payload < 1)
                 return state
             return {
                 ...state,
                 page: payload
+            }
+        case CHANGE_PERPAGE:
+            return {
+                ...state,
+                perPage: Number(payload)
             }
         case SORT_BY_AMOUNT:
             var dat1 = payload === 'asc' ? [...state.data].sort((a, b) => Number(a.amount) - Number(b.amount)) : [...state.data].sort((a, b) => Number(b.amount) - Number(a.amount))
@@ -79,7 +99,6 @@ export default (state = initState, { type, payload }) => {
             });
             console.log(resultProductData)
             var totalPages = Math.ceil(resultProductData.length / state.perPage)
-            // var dat3 = payload === 'asc' ? [...state.data].sort((a, b) => a.customerEmail > b.customerEmail) : [...state.data].sort((a, b) => b.customerEmail > a.customerEmail)
             return {
                 ...state,
                 isFilter: true,
@@ -92,6 +111,21 @@ export default (state = initState, { type, payload }) => {
                 data: [...state.data].filter(item => {
                     return item.paymentId !== payload
                 })
+            }
+        case EDIT_PAYMENT:
+            var edit_data = []
+            for (var k = 0; k < state.data.length; k++) {
+                if (state.data[k].paymentId === payload.paymentId) {
+                    edit_data.push(payload)
+                }
+                else {
+                    edit_data.push(state.data[k])
+                }
+            }
+            return {
+                ...state,
+                data: edit_data,
+                edit: false
             }
         default:
             return state;
