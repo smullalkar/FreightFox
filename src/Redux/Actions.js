@@ -5,11 +5,19 @@ import {
     SORT_BY_EMAIL,
     FILTER_PAYMENT_STATUS,
     FILTER_DATERANGE,
-    DELETE_PAYMENT
+    DELETE_PAYMENT,
+    EDIT_PAYMENT,
+    ADD_PAYMENT,
+    CHANGE_PERPAGE
 } from "./Actiontypes";
 
 export const changePage = payload => ({
     type: CHANGE_PAGE_NO,
+    payload
+})
+
+export const perPage = payload => ({
+    type: CHANGE_PERPAGE,
     payload
 })
 
@@ -42,4 +50,15 @@ export const filterByDateRange = payload => ({
 export const deletePayment = payload => ({
     type: DELETE_PAYMENT,
     payload,
+})
+
+export const editPayment = payload => ({
+    type: EDIT_PAYMENT,
+    payload,
+})
+
+
+export const addPayment = payload => ({
+    type: ADD_PAYMENT,
+    payload
 })
