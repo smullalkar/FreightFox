@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { deletePayment } from '../../Redux/Actions'
+import { Link } from 'react-router-dom'
 
 const Data = ({
     page,
     data,
     perPage,
     isFilter,
-    filteredData
+    filteredData,
+    deletePayment
 }) => {
     return (
-        <div className='container p-5'>
+        <div className='container p-lg-5 p-md-5 p-sm-2 p-2 table-responsive'>
             <table className="table table-hover">
                 <thead className='thead-dark'>
                     <tr>
@@ -34,8 +37,8 @@ const Data = ({
                                     <td>{item.customerEmail}</td>
                                     <td>{item.amount}</td>
                                     <td>{item.paymentStatus}</td>
-                                    <td><img alt='...' className='mr-lg-3' src='/delete.svg' style={{ width: '20px', height: '18px' }} /></td>
-                                    <td><img alt='...' className='mr-lg-3' src='/edit.svg' style={{ width: '20px', height: '18px' }} /></td>
+                                    <td><img onClick={() => deletePayment(item.paymentId)} alt='...' className='mr-lg-3' src='/delete.svg' style={{ width: '20px', height: '18px' }} /></td>
+                                    <td><Link to={`edit/${item.paymentId}`}><img alt='...' className='mr-lg-3' src='/edit.svg' style={{ width: '20px', height: '18px' }} /></Link></td>
                                 </tr>
                             ) :
                             data && data.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
@@ -46,6 +49,8 @@ const Data = ({
                                     <td>{item.customerEmail}</td>
                                     <td>{item.amount}</td>
                                     <td>{item.paymentStatus}</td>
+                                    <td><img alt='...' onClick={() => deletePayment(item.paymentId)} className='mr-lg-3' src='/delete.svg' style={{ width: '20px', height: '18px' }} /></td>
+                                    <td><Link to={`edit/${item.paymentId}`}><img alt='...' className='mr-lg-3' src='/edit.svg' style={{ width: '20px', height: '18px' }} /></Link></td>
                                 </tr>
                             )
                     }
@@ -63,8 +68,13 @@ const mapStateToProps = state => {
         data: state.data,
         perPage: state.perPage,
         isFilter: state.isFilter,
-        filteredData: state.filteredData
+        filteredData: state.filteredData,
+        edit: state.edit
     }
 }
 
-export default connect(mapStateToProps)(Data)
+const mapDispatchToProps = dispatch => ({
+    deletePayment: (payload) => dispatch(deletePayment(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Data)
