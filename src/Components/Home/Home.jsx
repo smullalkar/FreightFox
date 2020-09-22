@@ -6,8 +6,8 @@ import Data from '../Pagination/Data'
 export default function Home() {
     return (
         <div>
-            <Pagination />
             <Data />
+            <Pagination />
         </div>
     )
 }
