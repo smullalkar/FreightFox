@@ -19,39 +19,41 @@ class Filters extends Component {
         const { sortByAmount, sortByPid, sortByEmail, filterByPaymentStatus } = this.props
         const pStatus = ['All', 'Initiated', 'Failed', 'Dropped', 'Success', 'Refunded']
         return (
-            <div className='pt-3 text-center'>
+            <div className='pt-5 text-center'>
                 <h3>SORTING</h3>
-                <div className='d-flex flex-row justify-content-center'>
-                    <select className='m-2 custom-select'>
+                <div className='row justify-content-center'>
+                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
                         <option defaultValue>Sort By Amount</option>
                         <option onClick={() => { sortByAmount('asc') }} value='asc'>asc</option>
                         <option onClick={() => { sortByAmount('desc') }} value='desc'>desc</option>
                     </select>
-                    <select className='m-2 custom-select'>
+                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
                         <option defaultValue>Sort By Payment ID</option>
                         <option onClick={() => { sortByPid('asc') }} value='asc'>asc</option>
                         <option onClick={() => { sortByPid('desc') }} value='desc'>desc</option>
                     </select>
-                    <select className='m-2 custom-select'>
+                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
                         <option defaultValue>Sort By Email</option>
                         <option onClick={() => { sortByEmail('asc') }} value='asc'>asc</option>
                         <option onClick={() => { sortByEmail('desc') }} value='desc'>desc</option>
                     </select>
                 </div>
-                <div>
-                    <h3 className='mt-3'>FILTERS</h3>
-                    <div className="form-group col-4 offset-4">
-                        <select
-                            className="custom-select"
-                            onChange={e => filterByPaymentStatus(e.target.value)}
-                        >
-                            <option defaultValue>Payment Status</option>
-                            {
-                                pStatus && pStatus.map(s => <option key={s} value={s}>{s}</option>)
-                            }
-                        </select>
+                <div className='row justify-content-center'>
+                    <div className='col-lg-6 col-md-6 col-sm-10 col-10'>
+                        <h3 className='mt-5'>FILTER BY PAYMENT STATUS</h3>
+                        <div className="form-group col-lg-8 offset-lg-2">
+                            <select
+                                className="custom-select"
+                                onChange={e => filterByPaymentStatus(e.target.value)}
+                            >
+                                <option defaultValue>Payment Status</option>
+                                {
+                                    pStatus && pStatus.map(s => <option key={s} value={s}>{s}</option>)
+                                }
+                            </select>
+                        </div>
                     </div>
-                    <Daterange/>
+                    <Daterange className='col-lg-6 col-md-6 col-sm-7 col-7' />
                 </div>
             </div>
         )
