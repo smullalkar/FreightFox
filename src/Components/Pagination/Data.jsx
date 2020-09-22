@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 const Data = ({
     page,
     data,
-    perPage
+    perPage,
+    isFilter,
+    filteredData
 }) => {
     return (
         <div className='container p-5'>
@@ -17,20 +19,35 @@ const Data = ({
                         <th scope='col'>CUSTOMER EMAIL</th>
                         <th scope='col'>AMOUNT</th>
                         <th scope='col'>PAYMENT STATUS</th>
+                        <th scope='col'></th>
+                        <th scope='col'></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        data && data.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
-                            <tr key={item.paymentId}>
-                                <td>{item.paymentId}</td>
-                                <td>{item.orderDate}</td>
-                                <td>{item.merchantId}</td>
-                                <td>{item.customerEmail}</td>
-                                <td>{item.amount}</td>
-                                <td>{item.paymentStatus}</td>
-                            </tr>
-                        )
+                        isFilter ?
+                            filteredData && filteredData.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
+                                <tr key={item.paymentId}>
+                                    <td>{item.paymentId}</td>
+                                    <td>{item.orderDate}</td>
+                                    <td>{item.merchantId}</td>
+                                    <td>{item.customerEmail}</td>
+                                    <td>{item.amount}</td>
+                                    <td>{item.paymentStatus}</td>
+                                    <td><img alt='...' className='mr-lg-3' src='/delete.svg' style={{ width: '20px', height: '18px' }} /></td>
+                                    <td><img alt='...' className='mr-lg-3' src='/edit.svg' style={{ width: '20px', height: '18px' }} /></td>
+                                </tr>
+                            ) :
+                            data && data.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
+                                <tr key={item.paymentId}>
+                                    <td>{item.paymentId}</td>
+                                    <td>{item.orderDate}</td>
+                                    <td>{item.merchantId}</td>
+                                    <td>{item.customerEmail}</td>
+                                    <td>{item.amount}</td>
+                                    <td>{item.paymentStatus}</td>
+                                </tr>
+                            )
                     }
                 </tbody>
             </table>
@@ -39,10 +56,15 @@ const Data = ({
 }
 
 
-const mapStateToProps = state => ({
-    page: state.page,
-    data: state.data,
-    perPage: state.perPage
-})
+const mapStateToProps = state => {
+    console.log(state.filteredData)
+    return {
+        page: state.page,
+        data: state.data,
+        perPage: state.perPage,
+        isFilter: state.isFilter,
+        filteredData: state.filteredData
+    }
+}
 
 export default connect(mapStateToProps)(Data)
