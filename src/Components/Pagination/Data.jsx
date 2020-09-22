@@ -7,20 +7,33 @@ const Data = ({
     perPage
 }) => {
     return (
-        <div>
-            {
-                data && data.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
-                    <div key={item.paymentId}>
-                        <div>PAYMENT ID: {item.paymentId}</div>
-                        <div>ORDERDATE: {item.orderDate}</div>
-                        <div>MERCHANT ID: {item.merchantId}</div>
-                        <div>CUSTOMER EMAIL: {item.customerEmail}</div>
-                        <div>AMOUNT: {item.amount}</div>
-                        <div>PAYMENT STATUS: {item.paymentStatus}</div>
-                        <hr/>
-                    </div>
-                )
-            }
+        <div className='container p-5'>
+            <table className="table table-hover">
+                <thead className='thead-dark'>
+                    <tr>
+                        <th scope="col">PAYMENT ID</th>
+                        <th scope="col">ORDER DATE</th>
+                        <th scope="col">MERCHANT ID</th>
+                        <th scope='col'>CUSTOMER EMAIL</th>
+                        <th scope='col'>AMOUNT</th>
+                        <th scope='col'>PAYMENT STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data && data.filter((a, i) => i >= perPage * (page - 1) && i < perPage * page).map(item =>
+                            <tr key={item.paymentId}>
+                                <td>{item.paymentId}</td>
+                                <td>{item.orderDate}</td>
+                                <td>{item.merchantId}</td>
+                                <td>{item.customerEmail}</td>
+                                <td>{item.amount}</td>
+                                <td>{item.paymentStatus}</td>
+                            </tr>
+                        )
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }
