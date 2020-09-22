@@ -46,9 +46,11 @@ export default (state = initState, { type, payload }) => {
                 page: payload
             }
         case CHANGE_PERPAGE:
+            let t = Math.ceil(state.data.length/Number(payload))
             return {
                 ...state,
-                perPage: Number(payload)
+                perPage: Number(payload),
+                totalPages: t
             }
         case SORT_BY_AMOUNT:
             var dat1 = payload === 'asc' ? [...state.data].sort((a, b) => Number(a.amount) - Number(b.amount)) : [...state.data].sort((a, b) => Number(b.amount) - Number(a.amount))
