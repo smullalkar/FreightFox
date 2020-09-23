@@ -6,13 +6,12 @@ You are given a sample JSON data of payments consisting of :
 PaymentId,OrderDate,MerchantId,CustomerEmail,Amount and PaymentStatus.
 PaymentStatus could be one of these: ('Initiated','Failed','Dropped','Success','Refunded').
 You need to build a UI for showing this data. Results should be shown in a paginated way.
-
 <br>
 <br>
-<a href = "https://freighfoxassignment.vercel.app/">
+<a href = "https://freighfoxassignment.smullalkar.vercel.app/">
   <button style = "background:red,padding:5px">Demo Link of the assignment</button>
 </a>
-
+<br>
 To get started and know better here is the list of the features build inside this application
 
 1. Dashboard where you will get the table describing payment details of various customers
