@@ -91,6 +91,7 @@ class EditPayment extends Component {
                         className="custom-select col-6 mt-2 mb-3 mx-3 form-control"
                         name='paymentStatus'
                         onChange={this.handleChange}
+                        value={this.state.paymentStatus}
                     >
                         <option defaultValue>Payment Status</option>
                         {

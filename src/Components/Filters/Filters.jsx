@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { sortByAmount, sortByPid, sortByEmail, filterByPaymentStatus } from '../../Redux/Actions'
+import { sortByAmount, sortByPid, sortByEmail, sortByDate, filterByPaymentStatus } from '../../Redux/Actions'
 import { connect } from 'react-redux'
 import Daterange from './Daterange'
 
@@ -16,27 +16,44 @@ class Filters extends Component {
 
 
     render() {
-        const { sortByAmount, sortByPid, sortByEmail, filterByPaymentStatus } = this.props
+        const { sortByAmount, sortByPid, sortByEmail, sortByDate, filterByPaymentStatus } = this.props
         const pStatus = ['All', 'Initiated', 'Failed', 'Dropped', 'Success', 'Refunded']
         return (
             <div className='pt-5 text-center'>
                 <h3>SORTING</h3>
                 <div className='row justify-content-center'>
-                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
-                        <option defaultValue>Sort By Amount</option>
-                        <option onClick={() => { sortByAmount('asc') }} value='asc'>asc</option>
-                        <option onClick={() => { sortByAmount('desc') }} value='desc'>desc</option>
-                    </select>
-                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
-                        <option defaultValue>Sort By Payment ID</option>
-                        <option onClick={() => { sortByPid('asc') }} value='asc'>asc</option>
-                        <option onClick={() => { sortByPid('desc') }} value='desc'>desc</option>
-                    </select>
-                    <select className='col-lg-3 col-md-5 col-sm-10 col-10 m-3 custom-select'>
-                        <option defaultValue>Sort By Email</option>
-                        <option onClick={() => { sortByEmail('asc') }} value='asc'>asc</option>
-                        <option onClick={() => { sortByEmail('desc') }} value='desc'>desc</option>
-                    </select>
+                    <div className='col-lg-3 col-md-5 col-sm-10 col-10 mt-3'>
+                        <div className='mb-2'>SORT BY AMOUNT</div>
+                        <select className='custom-select'>
+                            <option defaultValue>Sort By Amount</option>
+                            <option onClick={() => { sortByAmount('asc') }} value='asc'>asc</option>
+                            <option onClick={() => { sortByAmount('desc') }} value='desc'>desc</option>
+                        </select>
+                    </div>
+                    <div className='col-lg-3 col-md-5 col-sm-10 col-10 mt-3'>
+                        <div className='mb-2'>SORT BY PAYMENT ID</div>
+                        <select className='custom-select'>
+                           <option defaultValue>Sort By Payment ID</option>
+                            <option onClick={() => { sortByPid('asc') }} value='asc'>asc</option>
+                            <option onClick={() => { sortByPid('desc') }} value='desc'>desc</option>
+                        </select>
+                    </div>
+                    <div className='col-lg-3 col-md-5 col-sm-10 col-10 mt-3'>
+                        <div className='mb-2'>SORT BY EMAIL</div>
+                        <select className='custom-select'>
+                            <option defaultValue>Sort By Email</option>
+                            <option onClick={() => { sortByEmail('asc') }} value='asc'>asc</option>
+                            <option onClick={() => { sortByEmail('desc') }} value='desc'>desc</option>
+                        </select>
+                    </div>
+                    <div className='col-lg-3 col-md-5 col-sm-10 col-10 mt-3'>
+                        <div className='mb-2'>SORT BY DATE</div>
+                        <select className='custom-select'>
+                            <option defaultValue>Sort By Date</option>
+                            <option onClick={() => { sortByDate('asc') }} value='asc'>asc</option>
+                            <option onClick={() => { sortByDate('desc') }} value='desc'>desc</option>
+                        </select>
+                    </div>
                 </div>
                 <div className='row justify-content-center'>
                     <div className='col-lg-6 col-md-6 col-sm-10 col-10'>
@@ -72,6 +89,7 @@ const mapDispatchToProps = dispatch => {
         sortByAmount: a => dispatch(sortByAmount(a)),
         sortByPid: a => dispatch(sortByPid(a)),
         sortByEmail: a => dispatch(sortByEmail(a)),
+        sortByDate: a => dispatch(sortByDate(a)),
         filterByPaymentStatus: a => dispatch(filterByPaymentStatus(a))
     };
 };

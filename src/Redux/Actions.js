@@ -8,7 +8,8 @@ import {
     DELETE_PAYMENT,
     EDIT_PAYMENT,
     ADD_PAYMENT,
-    CHANGE_PERPAGE
+    CHANGE_PERPAGE,
+    SORT_BY_DATE
 } from "./Actiontypes";
 
 export const changePage = payload => ({
@@ -34,6 +35,11 @@ export const sortByPid = payload => ({
 
 export const sortByEmail = payload => ({
     type: SORT_BY_EMAIL,
+    payload,
+})
+
+export const sortByDate = payload => ({
+    type: SORT_BY_DATE,
     payload,
 })
 

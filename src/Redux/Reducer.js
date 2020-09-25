@@ -8,7 +8,8 @@ import {
     DELETE_PAYMENT,
     EDIT_PAYMENT,
     ADD_PAYMENT,
-    CHANGE_PERPAGE
+    CHANGE_PERPAGE,
+    SORT_BY_DATE
 } from "./Actiontypes";
 import sampleData from '../Components/Data/data.json'
 import { loadData, saveData } from './LocalStorage'
@@ -16,7 +17,7 @@ import { loadData, saveData } from './LocalStorage'
 let persistData = loadData("state")
 console.log(persistData)
 
-const initState =  {
+const initState = {
     data: persistData !== null && persistData.length !== 0 ? persistData : sampleData,
     page: 1,
     perPage: 5,
@@ -32,7 +33,8 @@ const initState =  {
 export default (state = initState, { type, payload }) => {
     switch (type) {
         case ADD_PAYMENT:
-            let d1 = [...state.data, payload]
+            let p = {...payload.fields, ...payload.orderDate}
+            let d1 = [...state.data, p]
             saveData('state', d1)
             return {
                 ...state,
@@ -46,7 +48,7 @@ export default (state = initState, { type, payload }) => {
                 page: payload
             }
         case CHANGE_PERPAGE:
-            let t = Math.ceil(state.data.length/Number(payload))
+            let t = Math.ceil(state.data.length / Number(payload))
             return {
                 ...state,
                 perPage: Number(payload),
@@ -69,6 +71,22 @@ export default (state = initState, { type, payload }) => {
             return {
                 ...state,
                 data: dat3
+            }
+        case SORT_BY_DATE:
+            let dateSortDate = payload === 'asc' ? [...state.data].sort(function compare(a, b) {
+                var dateA = new Date(a.orderDate);
+                var dateB = new Date(b.orderDate);
+                return dateA - dateB;
+            })
+            :
+            [...state.data].sort(function compare(a, b) {
+                var dateA = new Date(a.orderDate);
+                var dateB = new Date(b.orderDate);
+                return dateB - dateA;
+            })
+            return {
+                ...state,
+                data: dateSortDate
             }
         case FILTER_PAYMENT_STATUS:
             console.log('payload', payload)
