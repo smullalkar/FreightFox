@@ -108,11 +108,13 @@ export default (state = initState, { type, payload }) => {
                 totalPages: totalPages
             }
         case DELETE_PAYMENT:
+            let d2 = [...state.data].filter(item => {
+                return item.paymentId !== payload
+            })
+            saveData('state', d2)
             return {
                 ...state,
-                data: [...state.data].filter(item => {
-                    return item.paymentId !== payload
-                })
+                data: d2
             }
         case EDIT_PAYMENT:
             var edit_data = []
@@ -124,6 +126,7 @@ export default (state = initState, { type, payload }) => {
                     edit_data.push(state.data[k])
                 }
             }
+            saveData('state', edit_data)
             return {
                 ...state,
                 data: edit_data,
